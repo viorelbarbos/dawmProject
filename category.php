@@ -118,11 +118,11 @@
             line-height: 1;
             text-align: center;
             cursor: pointer;
-            background-color: #060a085b;
+            background-color: #9d0011;
             color: #fefefe;
         }
         ul.pagination a:visited {
-            background-color: red;
+            background-color: #9d0011;
             color: black;
         }
         td>h3>a {

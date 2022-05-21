@@ -12,6 +12,9 @@
     .wrap{
         width:313px;
     }
+    .top-bar, .top-bar ul {
+        background-color: #9d0011;
+    }
     
 </style>
 <div class="top-bar">
@@ -20,7 +23,7 @@
                 <li class="menu-text">Welcome <?php echo $_SESSION['username']; ?>!</li>
                 <li><a href="index.php">Acasa</a></li>
                 <li><a href="category.php">Forum</a></li>
-                <li class="right"><a href="logout.php">Log out</a></li>
+                <li class="right"><a href="logout.php">Deconectare</a></li>
             </ul>
         </div>
         <div class="wrap">

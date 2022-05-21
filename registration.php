@@ -63,18 +63,13 @@
         margin-right: auto;
         width: 50%;
       }
-      .card p:first-child {
-        margin: auto;
-        text-align: center;
-        padding-top: 10%;
-      }
       .card {
         background-color: rgb(255, 255, 255);
         padding-top: 5%;
         border: 0px;
       }
       .top-bar, .top-bar ul {
-        background-color: #ff0000;
+        background-color: #9d0011;
         color: white;
         }
         a {
@@ -85,6 +80,12 @@
         }
         .form a {
             color: red;
+        }
+        .form {
+            margin-top: 130px;
+            border-color: red;
+            margin-bottom: 400px;
+            border-bottom-style: double;
         }
       
     </style>
@@ -144,22 +145,23 @@
     }
     }else{
 ?>
-    <div class="form">
-        <h1 >Registration</h1>
-        <form  name="registration" action="" method="post" onsubmit="return validateform()">
-            <input type="text" name="username"  placeholder="Username" required />
-            <input type="email" name="email"   placeholder="Email"  required/>
-            <input type="password" name="password" placeholder="Parola" required />
-            <input type="password" name="confirmpassword" placeholder="Reintroduceti parola"  required />
-            <input type="submit" name="submit" value="Register" />
-        </form>
-        <p>Do you have an account? <a style = "color: red;" href='login.php'>Log In here!</a></p>
-
+    <div style="display:flex;">
+        <div class="form">
+            <form  name="registration" action="" method="post" onsubmit="return validateform()">
+                <div class="smb-center">
+                    <h1 style="font-size: 20px;">Inregistreaza-te!</h1>
+                    <input type="text" name="username"  placeholder="Username" required />
+                    <input type="email" name="email"   placeholder="Email"  required/>
+                    <input type="password" name="password" placeholder="Parola" required />
+                    <input type="password" name="confirmpassword" placeholder="Reintroduceti parola"  required />
+                    <input type="submit" name="submit" value="Inscrie-te" style="margin: auto;"/>
+                    <p>Ai deja un cont? <a style = "color: #9d0011;" href='login.php'>Conecteaza-te aici!</a></p>
+                </div>
+            </form>
+        </div>
     </div>
     <?php } ?>
-    <footer style="text-align: center">
-        © 2019 Descopera Romania All rights reserved.
-    </footer>
+    <?php include('footer.php')?>
     <script src="js/app.js"></script>
 </body>
 

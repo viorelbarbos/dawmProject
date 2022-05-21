@@ -19,31 +19,20 @@ include("auth.php"); //include auth.php file on all secure pages ?>
       body {
           background-color: rgb(255, 255, 255);
         }
-        footer {
-          position: fixed;
-          left: 0;
-          bottom: 0;
-          width: 100%;
-          background-color: #ff0000;
-          color: rgb(255, 255, 255);
-          text-align: center;
-        }
         img {
           border-radius: 8px;
           display: block;
           margin-left: auto;
           margin-right: auto;
-          width: 50%;
+          width: 60%
         }
-        .card p:first-child {
-          margin: auto;
-          text-align: center;
-          padding-top: 10%;
-        }
+        
         .card {
           background-color: rgb(255, 255, 255);
           padding-top: 5%;
           border: 0px;
+          width: auto;
+          height: 650px;
         }
         .top-bar, .top-bar ul {
           background-color: #ff0000;
@@ -71,9 +60,7 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         <img src="img/romania.png" />
     </div>
 
-    <footer style="text-align: center">
-        © 2019 Descopera Romania All rights reserved.
-    </footer>
+    <?php include('footer.php') ?>
 </body>
 
 </html>

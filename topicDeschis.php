@@ -127,11 +127,11 @@
             line-height: 1;
             text-align: center;
             cursor: pointer;
-            background-color: #060a085b;
+            background-color: #9d0011;
             color: #fefefe;
         }
         ul.pagination a:visited {
-            background-color: red;
+            background-color: #9d0011;
             color: black;
         }
         td>h3>a {
@@ -157,6 +157,7 @@
             flex-direction: column;
             align-items: flex-start;
         }
+    
        
 
         
@@ -281,20 +282,26 @@
                 echo "</ul>";
                 echo "</div>";
                 if($pg ==$total ) {
-                    echo "<p>Adauga un raspuns</p>";
-                    echo '<form id="usrform1" action="" method="post">';
-                    echo '<textarea name="comment" form="usrform1"></textarea>';
-                    echo '<input type="submit" name="submit" value="Adauga raspuns" />';
-                    echo '</form>';
+                    echo '<div class = "adb">';
+                        echo "<p>Adauga un raspuns</p>";
+                        echo '<form id="usrform1" action="" method="post">';
+                            echo '<textarea name="comment" form="usrform1"></textarea>';
+                            echo '<div class="submit-warpper">';
+                                echo '<input type="submit" name="submit" value="Adauga raspuns" />';
+                            echo '</div>';
+                        echo '</form>';
+                    echo '</div>';
                 }
                 else if(($pg == 1 and $total == 1) or $total == 0 ) {
-                    echo "<p>Adauga un raspuns</p>";
-                    echo '<form id="usrform1" action="" method="post">';
-                    echo '<textarea name="comment" form="usrform1"></textarea>';
-                    echo '<div class="submit-warpper">';
-                        echo '<input type="submit" name="submit" value="Adauga raspuns" />';
+                    echo '<div class = "adb">';
+                        echo "<p>Adauga un raspuns</p>";
+                        echo '<form id="usrform1" action="" method="post">';
+                            echo '<textarea name="comment" form="usrform1"></textarea>';
+                            echo '<div class="submit-warpper">';
+                                echo '<input type="submit" name="submit" value="Adauga raspuns" />';
+                            echo '</div>';
+                        echo '</form>';
                     echo '</div>';
-                    echo '</form>';
                 }
             }
 

@@ -44,7 +44,7 @@
         border: 0px;
       }
       .top-bar, .top-bar ul {
-        background-color: #ff0000;
+        background-color: #9d0011;
         color: white;
     }
     a {
@@ -55,6 +55,12 @@
     }
     .form a {
       color: red;
+    }
+    .form {
+      margin-top: 150px;
+      border-color: red;
+      margin-bottom: 400px;
+      border-bottom-style: double;
     }
     </style>
 </head>
@@ -87,8 +93,8 @@
 		
 	//Checking is user existing in the database or not
         $query = "SELECT * FROM `users` WHERE username='$username' and password='".md5($password)."'";
-		$result = mysqli_query($con,$query) or die(mysql_error());
-		$rows = mysqli_num_rows($result);
+		    $result = mysqli_query($con,$query) or die(mysql_error());
+		    $rows = mysqli_num_rows($result);
         if($rows==1){
             $_SESSION["username"] = $username;
             header("Location: index.php");
@@ -98,22 +104,22 @@
 				}
     }else{
 ?>
-    <div class="form">
-        <h1>Log In</h1>
-        <form action="" method="post" name="login">
-            <input type="text" name="username" placeholder="username" required />
-            <input type="password" name="password" placeholder="parola" required />
-            <input name="submit" type="submit" value="Login" />
-        </form>
-        <p>Nu esti inregistrat? <a style = "color: red;" href='registration.php'>Apasa aici!</a></p>
-
-
+    <div style="display:flex;">
+      <div class="form">
+          <form action="" method="post" name="login">
+            <div class="smb-center">
+              <h1 style="font-size: 20px;">Intra in cont</h1>
+                <input type="text" name="username" placeholder="Username" required />
+                <input type="password" name="password" placeholder="Parola" required />
+                <input name="submit" type="submit" value="Conecteaza-te" />
+                <p>Nu esti inregistrat? <a style = "color: #9d0011;" href='registration.php'>Creeaza un cont nou</a></p>
+            </div>
+          </form>
+      </div>
     </div>
     <?php } ?>
 
-    <footer style="text-align: center">
-        © 2019 Descopera Romania All rights reserved.
-    </footer>
+    <?php include('footer.php')?>
 </body>
 
 </html>

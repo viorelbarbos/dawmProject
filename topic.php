@@ -126,12 +126,12 @@
                 line-height: 1;
                 text-align: center;
                 cursor: pointer;
-                background-color: #060a085b;
+                background-color: #9d0011;
                 color: #fefefe;
             }
             
             ul.pagination a:visited {
-                background-color: red;
+                background-color: #9d0011;
                 color: black;
             }
             td>h3>a {
@@ -265,22 +265,26 @@
             echo "</ul>";
             echo "</div>";
             if($pg ==$total ) {
-                echo ' <form id="topicForm" action="" method="post">';
-                echo '<label for="fname">Introduceti numele topicului</label>';
-                echo ' <input type="text" id="fname" name="numTOPIC" value="">';
-                echo ' <label for="fname">Introduceti un comentariu</label>';
-                echo '<textarea name="comment" form="topicForm"></textarea>';
-                echo '<input type="submit" name="submit" value="Adauga raspuns" />';
-                echo '</form>';
+                echo '<div class = "adb">';
+                    echo ' <form id="topicForm" action="" method="post">';
+                        echo '<label for="fname">Introduceti numele topicului</label>';
+                        echo ' <input type="text" id="fname" name="numTOPIC" value="">';
+                        echo ' <label for="fname">Introduceti un comentariu</label>';
+                        echo '<textarea name="comment" form="topicForm"></textarea>';
+                        echo '<input type="submit" name="submit" value="Adauga raspuns" />';
+                    echo '</form>';
+                echo '</div>';
             }
             else if( ($pg == 1 and $total == 1) or $total == 0 ) {
-                echo ' <form id="topicForm" action="" method="post">';
-                echo '<label for="fname">Introduceti numele topicului</label>';
-                echo ' <input type="text" id="fname" name="numTOPIC" value="">';
-                echo ' <label for="fname">Introduceti un comentariu</label>';
-                echo '<textarea name="comment" form="topicForm"></textarea>';
-                echo '<input type="submit" name="submit" value="Adauga raspuns" />';
-                echo '</form>';
+                echo '<div class = "adb">';
+                    echo ' <form id="topicForm" action="" method="post">';
+                        echo '<label for="fname">Introduceti numele topicului</label>';
+                        echo ' <input type="text" id="fname" name="numTOPIC" value="">';
+                        echo ' <label for="fname">Introduceti un comentariu</label>';
+                        echo '<textarea name="comment" form="topicForm"></textarea>';
+                        echo '<input type="submit" name="submit" value="Adauga raspuns" />';
+                    echo '</form>';
+                echo '</div>';
             }
            
             include('footer.php');
