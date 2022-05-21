@@ -271,7 +271,7 @@
                         echo ' <input type="text" id="fname" name="numTOPIC" value="">';
                         echo ' <label for="fname">Introduceti un comentariu</label>';
                         echo '<textarea name="comment" form="topicForm"></textarea>';
-                        echo '<input type="submit" name="submit" value="Adauga raspuns" />';
+                        echo '<input type="submit" name="submit" value="Adauga un topic" />';
                     echo '</form>';
                 echo '</div>';
             }
@@ -282,7 +282,7 @@
                         echo ' <input type="text" id="fname" name="numTOPIC" value="">';
                         echo ' <label for="fname">Introduceti un comentariu</label>';
                         echo '<textarea name="comment" form="topicForm"></textarea>';
-                        echo '<input type="submit" name="submit" value="Adauga raspuns" />';
+                        echo '<input type="submit" name="submit" value="Adauga un topic" />';
                     echo '</form>';
                 echo '</div>';
             }
