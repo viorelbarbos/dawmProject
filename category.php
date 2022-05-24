@@ -155,19 +155,19 @@ include 'header-user.php';
     }
     $start = ($id - 1) * $limit;
 
-    $sql = "SELECT * FROM judete LIMIT $start, $limit";   
-    $result = mysqli_query($con, $sql);
+    $sql_jud = "SELECT * FROM judete LIMIT $start, $limit";   
+    $result_jud = mysqli_query($con, $sql_jud);
 
 
-    if (!$result)
+    if (!$result_jud)
         die('Invalid querry:' . mysqli_error($con));
     else {
 
         echo "<table id = \"customers\">";
         echo "<tr><th><b>Categorie</b></th><th><b>Creata la data de</b></th></tr>";
-        while ($myrow = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+        while ($table_data = mysqli_fetch_array($result_jud, MYSQLI_ASSOC)) {
             echo "<tr><td>";
-            echo '<h3><a href="topic.php?jud=' . $myrow['name'] . '">' . $myrow['name'] . '</a><h3>';
+            echo '<h3><a href="topic.php?jud=' . $table_data['name'] . '">' . $table_data['name'] . '</a><h3>';
             echo "</td>";
             echo "<td>";
             echo "18-05-2022";

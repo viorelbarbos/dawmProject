@@ -46,22 +46,22 @@
       .top-bar, .top-bar ul {
         background-color: #9d0011;
         color: white;
-    }
-    a {
-      color: white;
-    }
-    a:hover {
-      color: black;
-    }
-    .form a {
-      color: red;
-    }
-    .form {
-      margin-top: 150px;
-      border-color: red;
-      margin-bottom: 400px;
-      border-bottom-style: double;
-    }
+      }
+      a {
+        color: white;
+      }
+      a:hover {
+        color: black;
+      }
+      .form a {
+        color: red;
+      }
+      .form {
+        margin-top: 150px;
+        border-color: red;
+        margin-bottom: 400px;
+        border-bottom-style: double;
+      }
     </style>
 </head>
 
@@ -92,15 +92,15 @@
 		$password = mysqli_real_escape_string($con,$password);
 		
 	//Checking is user existing in the database or not
-        $query = "SELECT * FROM `users` WHERE username='$username' and password='".md5($password)."'";
-		    $result = mysqli_query($con,$query) or die(mysql_error());
-		    $rows = mysqli_num_rows($result);
+        $query_users = "SELECT * FROM `users` WHERE username='$username' and password='".md5($password)."'";
+		    $result_users = mysqli_query($con,$query_users) or die(mysql_error());
+		    $rows = mysqli_num_rows($result_users);
         if($rows==1){
             $_SESSION["username"] = $username;
             header("Location: index.php");
             exit(); // Redirect user to index.php
             }else{
-				echo "<div class='form'><h3>username-ul sau parola este incorecta!</h3><br/>Apasati aici pentru a va <a href='login.php'>loga</a></div>";
+				echo "<div class='form'><h3>Username-ul sau parola este incorecta!</h3><br/>Apasati aici pentru a va <a href='login.php'>loga</a></div>";
 				}
     }else{
 ?>

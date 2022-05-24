@@ -121,25 +121,26 @@
         $confirmpassword = stripslashes($_REQUEST['confirmpassword']);
 		$confirmpassword = mysqli_real_escape_string($con,$confirmpassword);
 
-        $query = "SELECT username FROM `users` WHERE username='$name'";
-        $result = mysqli_query($con,$query) or die(mysql_error());
-		$rows = mysqli_num_rows($result);
-        $query1 = "SELECT email FROM `users` WHERE email='$email'";
-        $result1 = mysqli_query($con,$query1) or die(mysql_error());
-		$rows1 = mysqli_num_rows($result1);
-        if($rows != 0 ){
+        $query_name = "SELECT username FROM `users` WHERE username='$name'";
+        $result_name = mysqli_query($con,$query_name) or die(mysql_error());
+		$rows_name = mysqli_num_rows($result_name);
+
+        $query_email = "SELECT email FROM `users` WHERE email='$email'";
+        $result_email = mysqli_query($con,$query_email) or die(mysql_error());
+		$rows_email = mysqli_num_rows($result_email);
+        if($rows_name != 0 ){
             echo "<div class='form'><h3>Acest username deja exista!</h3><br/>Apasa aici pentru a te <a href='registration.php'>inregistra</a></div>";
 
         }
-        else if ($rows1 != 0) {
+        else if ($rows_email != 0) {
             echo "<div class='form'><h3>Acest mail exista in baza de date!</h3><br/>Apasa aici pentru a te <a href='registration.php'>inregistra</a></div>";
         }
         else {
 
 		$trn_date = date("Y-m-d H:i:s");
-        $query = "INSERT into `users` (username, password, email, trn_date) VALUES ('$name', '".md5($password)."', '$email', '$trn_date')";
-        $result = mysqli_query($con,$query);
-        if($result){
+        $query_insert = "INSERT into `users` (username, password, email, trn_date) VALUES ('$name', '".md5($password)."', '$email', '$trn_date')";
+        $result_insert = mysqli_query($con,$query_insert);
+        if($result_insert){
             echo "<div class='form'><h3>V-ati inregistrat cu succes.</h3><br/>Apasati aici pentru <a href='login.php'>logare</a></div>";
         }
     }

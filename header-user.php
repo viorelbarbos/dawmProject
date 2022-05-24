@@ -39,12 +39,12 @@
 <?php
     include 'red.php';
     if(isset($_REQUEST['cautare']) and $_REQUEST['cautare'] !="") {
-        $k = $_REQUEST['cautare'];
-        $sql = "SELECT id FROM judete WHERE name='$k'";   
-        $result = mysqli_query($con, $sql);
-        $row_cnt = mysqli_num_rows($result);
+        $name_jud = $_REQUEST['cautare'];
+        $sql_jud = "SELECT id FROM judete WHERE name='$name_jud'";   
+        $result_jud = mysqli_query($con, $sql_jud);
+        $row_cnt = mysqli_num_rows($result_jud);
         if($row_cnt == 1) {
-            redirect('topic.php?jud='.$k.'');
+            redirect('topic.php?jud='.$name_jud.'');
         }
         else {
 

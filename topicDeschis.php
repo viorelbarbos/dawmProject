@@ -176,21 +176,21 @@
                 //echo $_GET['id'];
                 //echo '</br>';
                 // id_topic / id_utilizator / raspunsul
-                $k = $_SESSION['username'];
-                $sql2 = "SELECT id FROM users WHERE username = '$k'";   
-                $result2 = mysqli_query($con, $sql2);
-                $myrow2 = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+                $user_name = $_SESSION['username'];
+                $sql_users = "SELECT id FROM users WHERE username = '$user_name'";   
+                $result_users = mysqli_query($con, $sql_users);
+                $table_data_users = mysqli_fetch_array($result_users, MYSQLI_ASSOC);
                 //echo '</br>';
                 //echo $myrow2['id']; 
-                $id_util = $myrow2['id']; // id utilizator
+                $id_util = $table_data_users['id']; // id utilizator
 
                 $num_top = $_GET['top'];
-                $sql3 = "SELECT id FROM topic WHERE numetopic = '$num_top'";   
-                $result3 = mysqli_query($con, $sql3);
-                $myrow3 = mysqli_fetch_array($result3, MYSQLI_ASSOC);
+                $sql_topic = "SELECT id FROM topic WHERE numetopic = '$num_top'";   
+                $result_topic = mysqli_query($con, $sql_topic);
+                $table_data_topic = mysqli_fetch_array($result_topic, MYSQLI_ASSOC);
                // echo '</br>';
                 //echo $myrow3['id'];
-                $id_top = $myrow3['id']; // id topic
+                $id_top = $table_data_topic['id']; // id topic
                     
                 $comentariu = stripslashes($_REQUEST['comment']); 
 		        $comentariu = mysqli_real_escape_string($con,$comentariu);
@@ -237,34 +237,34 @@
 
             $k = $_GET['top'];
             //echo $k;
-            $sql1 = "SELECT id FROM topic WHERE numetopic='$k'";   
-            $result1 = mysqli_query($con, $sql1);
-            $myrow1 = mysqli_fetch_array($result1, MYSQLI_ASSOC);
+            $sql_topicId = "SELECT id FROM topic WHERE numetopic='$k'";   
+            $result_topicId = mysqli_query($con, $sql_topicId);
+            $table_data_topicId = mysqli_fetch_array($result_topicId, MYSQLI_ASSOC);
 
-            $k_id_topic = $myrow1['id']; // id topic
-            $sql = "SELECT * FROM raspunsuri WHERE id_topic = '$k_id_topic' LIMIT $start, $limit";   
-            $result = mysqli_query($con, $sql);
+            $k_id_topic = $table_data_topicId['id']; // id topic
+            $sql_raspunsuri = "SELECT * FROM raspunsuri WHERE id_topic = '$k_id_topic' LIMIT $start, $limit";   
+            $result_raspunsuri = mysqli_query($con, $sql_raspunsuri);
             
             
 
-            if (!$result)
+            if (!$result_raspunsuri)
                 die('Invalid querry:' . mysqli_error($con));
             else {
 
                 echo "<table id = \"customers\">";
                 echo "<tr><td class = 'table-head' colspan='3'><a href='category.php'><b>Categorii</b> </a>/ <a href='topic.php?jud=" .$_GET['jud'] . "'><b>".$_GET['jud']."</b> </a>/ <b>".$_GET['top']."</b></td></tr>";
                 echo "<tr><th><b>Utilizator</b></th><th><b>Raspuns</b></th><th><b>Data</b></th></tr>";
-                while ($myrow = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                while ($table_data_raspunsuri = mysqli_fetch_array($result_raspunsuri, MYSQLI_ASSOC)) {
                     
-                    $k = $myrow['id_util'];
-                    $sql1 = "SELECT username FROM users WHERE id=$k";   
-                    $result1 = mysqli_query($con, $sql1);
-                    $myrow1 = mysqli_fetch_array($result1, MYSQLI_ASSOC);
+                    $k = $table_data_raspunsuri['id_util'];
+                    $sql_getuserID = "SELECT username FROM users WHERE id=$k";   
+                    $result_getuserID = mysqli_query($con, $sql_getuserID);
+                    $table_data_userID = mysqli_fetch_array($result_getuserID, MYSQLI_ASSOC);
 
                     echo "<tr>";
-                    echo '<td>' . $myrow1['username'] . '</td>';
-                    echo '<td>' . $myrow['raspuns'] . '</td>';
-                    echo '<td>' . $myrow['data'] . '</td>';
+                    echo '<td>' . $table_data_userID['username'] . '</td>';
+                    echo '<td>' . $table_data_raspunsuri['raspuns'] . '</td>';
+                    echo '<td>' . $table_data_raspunsuri['data'] . '</td>';
                     echo "</tr>";
                 }
                 echo "</table>";

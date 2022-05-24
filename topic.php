@@ -156,21 +156,21 @@
             //echo $_GET['id'];
             //echo '</br>';
             // id_topic / id_utilizator / raspunsul
-            $k = $_SESSION['username'];
-            $sql2 = "SELECT id FROM users WHERE username = '$k'";   
-            $result2 = mysqli_query($con, $sql2);
-            $myrow2 = mysqli_fetch_array($result2, MYSQLI_ASSOC);
+            $user_name = $_SESSION['username'];
+            $sql_getid = "SELECT id FROM users WHERE username = '$user_name'";   
+            $result_getid = mysqli_query($con, $sql_getid);
+            $table_data = mysqli_fetch_array($result_getid, MYSQLI_ASSOC);
             //echo '</br>';
             //echo $myrow2['id']; 
-            $id_util = $myrow2['id']; // id utilizator
+            $id_util = $table_data['id']; // id utilizator
 
             $num_jud = $_GET['jud'];
-            $sql3 = "SELECT id FROM judete WHERE name = '$num_jud'";   
-            $result3 = mysqli_query($con, $sql3);
-            $myrow3 = mysqli_fetch_array($result3, MYSQLI_ASSOC);
-           // echo '</br>';
+            $sql_getid_jud = "SELECT id FROM judete WHERE name = '$num_jud'";   
+            $result_getidjud = mysqli_query($con, $sql_getid_jud);
+            $table_data = mysqli_fetch_array($result_getidjud, MYSQLI_ASSOC);
+            // echo '</br>';
             //echo $myrow3['id'];
-            $id_jud = $myrow3['id']; // id topic
+            $id_jud = $table_data['id']; // id topic
                 
             $numTOP = stripslashes($_REQUEST['numTOPIC']); 
             $numTOP = mysqli_real_escape_string($con,$numTOP);
@@ -207,7 +207,7 @@
 
 
         $start = 0;
-        $limit = 7;
+        $limit = 5;
         $pg = 1;
         if (isset($_GET['pg'])) {
             $pg = $_GET['pg'];
@@ -218,41 +218,41 @@
 
         $start = (intval($pg) - 1) * $limit;
 
-        $k = $_GET['jud'];
-        $sql1 = "SELECT id FROM judete WHERE name='$k'";   
-        $result1 = mysqli_query($con, $sql1);
-        $myrow1 = mysqli_fetch_array($result1, MYSQLI_ASSOC);
+        $name_jud = $_GET['jud'];
+        $sql_getidjud = "SELECT id FROM judete WHERE name='$name_jud'";   
+        $result_getidjud = mysqli_query($con, $sql_getidjud);
+        $table_data = mysqli_fetch_array($result_getidjud, MYSQLI_ASSOC);
 
-        $k = $myrow1['id'];
-        $sql = "SELECT * FROM topic WHERE id_jud = '$k' LIMIT $start, $limit";   
-        $result = mysqli_query($con, $sql);
+        $jud_id = $table_data['id'];
+        $sql_dataTopic = "SELECT * FROM topic WHERE id_jud = '$jud_id' LIMIT $start, $limit";   
+        $result_dataTopic = mysqli_query($con, $sql_dataTopic);
 
 
-        if (!$result)
+        if (!$result_dataTopic)
             die('Invalid querry:' . mysqli_error($con));
         else {
 
             echo "<table id = \"customers\">";
             echo "<tr><td class = 'table-head' colspan='4'><a href='category.php'><b>Categorii</b> </a>/ <b>".$_GET['jud']."</b></td></tr>";
             echo "<tr><th><b>Utilizator</b></th><th><b>Topic</b></th><th><b>Motiv</b></th><th><b>Data</b></th></tr>";
-            while ($myrow = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+            while ($table_data = mysqli_fetch_array($result_dataTopic, MYSQLI_ASSOC)) {
             
 
-                $k = $myrow['id_util'];
-                $sql1 = "SELECT username FROM users WHERE id=$k";   
-                $result1 = mysqli_query($con, $sql1);
-                $myrow1 = mysqli_fetch_array($result1, MYSQLI_ASSOC);
+                $id_user = $table_data['id_util'];
+                $sql_getUser = "SELECT username FROM users WHERE id=$id_user";   
+                $result_getUser = mysqli_query($con, $sql_getUser);
+                $table_data_users = mysqli_fetch_array($result_getUser, MYSQLI_ASSOC);
 
                 echo "<tr>";
-                echo '<td>' . $myrow1['username'] . '</td>';
-                echo '<td><h3><a href="topicDeschis.php?jud=' .$_GET['jud'] . '&top=' . $myrow['numetopic'] .'">' . $myrow['numetopic'] . '</a><h3></td>';
-                echo '<td>' . $myrow['descriere'] . '</td>';
-                echo '<td>' . $myrow['data'] . '</td>';
+                echo '<td>' . $table_data_users['username'] . '</td>';
+                echo '<td><h3><a href="topicDeschis.php?jud=' .$_GET['jud'] . '&top=' . $table_data['numetopic'] .'">' . $table_data['numetopic'] . '</a><h3></td>';
+                echo '<td>' . $table_data['descriere'] . '</td>';
+                echo '<td>' . $table_data['data'] . '</td>';
                 echo "</tr>";
             }
             echo "</table>";
 
-            $rows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM topic WHERE id_jud = '$k'"));
+            $rows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM topic WHERE id_jud = '$jud_id'"));
             $total = ceil($rows / $limit);
             echo "<div class='container'>";
             echo "<ul class='pagination'>";
