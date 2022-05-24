@@ -147,8 +147,8 @@ include 'header-user.php';
     $start = 0;
     $limit = 11;
     $id = 1;
-    if (isset($_GET['id'])) {
-        $id = $_GET['id'];
+    if (isset($_GET['pg'])) {
+        $id = $_GET['pg'];
     }
     else {
       $id = 1;
@@ -167,7 +167,7 @@ include 'header-user.php';
         echo "<tr><th><b>Categorie</b></th><th><b>Creata la data de</b></th></tr>";
         while ($myrow = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             echo "<tr><td>";
-            echo '<h3><a href="topic.php?id=' . $myrow['name'] . '">' . $myrow['name'] . '</a><h3>';
+            echo '<h3><a href="topic.php?jud=' . $myrow['name'] . '">' . $myrow['name'] . '</a><h3>';
             echo "</td>";
             echo "<td>";
             echo "18-05-2022";
@@ -187,9 +187,9 @@ include 'header-user.php';
         echo "<ul class='pagination'>";
         for ($i = 1; $i <= $total; $i++) {
             if ($i == $id) {
-                echo "<li><a href='?id=" . $i . "'>" . $i . "</a></li>";
+                echo "<li><a href='?pg=" . $i . "'>" . $i . "</a></li>";
             } else {
-                echo "<li><a href='?id=" . $i . "'>" . $i . "</a></li>";
+                echo "<li><a href='?pg=" . $i . "'>" . $i . "</a></li>";
             }
         }
         echo "</ul>";

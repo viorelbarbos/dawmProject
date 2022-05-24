@@ -44,7 +44,7 @@
         $result = mysqli_query($con, $sql);
         $row_cnt = mysqli_num_rows($result);
         if($row_cnt == 1) {
-            redirect('topic.php?id='.$k.'');
+            redirect('topic.php?jud='.$k.'');
         }
         else {
 

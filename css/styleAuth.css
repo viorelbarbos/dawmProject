@@ -58,3 +58,12 @@ input[type='submit'] {
 input[type='submit']:hover {
     background-color: #00000065;
 }
+.table-head{
+    text-align: center; background-color: #6e2e23;color: white; 
+}
+.select-tables {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}

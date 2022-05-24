@@ -164,7 +164,7 @@
             //echo $myrow2['id']; 
             $id_util = $myrow2['id']; // id utilizator
 
-            $num_jud = $_GET['id'];
+            $num_jud = $_GET['jud'];
             $sql3 = "SELECT id FROM judete WHERE name = '$num_jud'";   
             $result3 = mysqli_query($con, $sql3);
             $myrow3 = mysqli_fetch_array($result3, MYSQLI_ASSOC);
@@ -181,18 +181,18 @@
             $trn_date = date("Y-m-d H:i:s");
             $query = "INSERT into `topic` (id_jud, id_util, numetopic ,descriere, data) VALUES ('$id_jud', '$id_util', '$numTOP', '$com' ,'$trn_date')";
             $result = mysqli_query($con,$query);
-            $i = $_GET['id'];
+            $i = $_GET['jud'];
             //$p = $_GET['pg'];
 
             //header("Location: topicDeschis.php?id=" . $i . "&pg=" . $p . "");
             //exit();
             if (empty($_GET['pg'])) {
-                echo "<script>window.location.href='topic.php?id=".$i."';</script>";
+                echo "<script>window.location.href='topic.php?jud=".$i."';</script>";
                 exit();
             }
             else {
                 $pg = $_GET['pg'];
-                echo "<script>window.location.href='topic.php?id=".$i."&pg=" . $pg . "';</script>";
+                echo "<script>window.location.href='topic.php?jud=".$i."&pg=" . $pg . "';</script>";
                 exit();
 
             }
@@ -218,7 +218,7 @@
 
         $start = (intval($pg) - 1) * $limit;
 
-        $k = $_GET['id'];
+        $k = $_GET['jud'];
         $sql1 = "SELECT id FROM judete WHERE name='$k'";   
         $result1 = mysqli_query($con, $sql1);
         $myrow1 = mysqli_fetch_array($result1, MYSQLI_ASSOC);
@@ -233,6 +233,7 @@
         else {
 
             echo "<table id = \"customers\">";
+            echo "<tr><td class = 'table-head' colspan='4'><a href='category.php'><b>Categorii</b> </a>/ <b>".$_GET['jud']."</b></td></tr>";
             echo "<tr><th><b>Utilizator</b></th><th><b>Topic</b></th><th><b>Motiv</b></th><th><b>Data</b></th></tr>";
             while ($myrow = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
             
@@ -244,7 +245,7 @@
 
                 echo "<tr>";
                 echo '<td>' . $myrow1['username'] . '</td>';
-                echo '<td><h3><a href="topicDeschis.php?id=' . $myrow['numetopic'] . '">' . $myrow['numetopic'] . '</a><h3></td>';
+                echo '<td><h3><a href="topicDeschis.php?jud=' .$_GET['jud'] . '&top=' . $myrow['numetopic'] .'">' . $myrow['numetopic'] . '</a><h3></td>';
                 echo '<td>' . $myrow['descriere'] . '</td>';
                 echo '<td>' . $myrow['data'] . '</td>';
                 echo "</tr>";
@@ -257,9 +258,9 @@
             echo "<ul class='pagination'>";
             for ($i = 1; $i <= $total; $i++) {
                 if ($i == $pg) {
-                    echo "<li><a href='topic.php?id=" . $_GET['id'] . "&pg=" . $i . "'>" . $i . "</a></li>";
+                    echo "<li><a href='topic.php?jud=" . $_GET['jud'] . "&pg=" . $i . "'>" . $i . "</a></li>";
                 } else {
-                    echo "<li><a href='topic.php?id=" . $_GET['id'] . "&pg=" . $i . "'>" . $i . "</a></li>";
+                    echo "<li><a href='topic.php?jud=" . $_GET['jud'] . "&pg=" . $i . "'>" . $i . "</a></li>";
                 }
             }
             echo "</ul>";
