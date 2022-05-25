@@ -40,7 +40,7 @@
             alert("Ati introdus un mail invalid");
             return false; 
         }
-    }  
+        }  
           
     </script> 
     <style>

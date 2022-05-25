@@ -128,16 +128,47 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         #customers a:hover {
             color: #9d0011;
         }
-        .adb1 {
-            display: flex;
-            justify-content: start;
-            flex-direction: column;
-            align-items: center;
-        }
         .adb {
-            padding-top:220px;
+            padding-top: 150px;
+        }
+        .align-rbtn {
+            display: line;  
         }
     </style>
+    <script>
+            // Using ES6 feature.
+            let redirect_Page = (ele) => {
+                
+                ele.value = 'Inapoi la adminPanel in 5 secunde ...';
+                ele.disabled = true;
+                alert("Felicitari");
+                
+                let tID = setTimeout(function () {
+
+                    // redirect page.
+                    window.location.href = 'adminPanel.php';
+                    
+                    window.clearTimeout(tID);		// clear time out.
+                    
+                }, 5000);	// call function after 5000 milliseconds or 5 seconds
+            }
+            let redirect_Page1 = (ele) => {
+                
+                ele.value = 'Inapoi la adminPanel in 5 secunde ...';
+                ele.disabled = true;
+                alert("Topicul a fost sters cu succes!");
+                
+                let tID = setTimeout(function () {
+
+                    // redirect page.
+                    window.location.href = 'adminPanel.php';
+                    
+                    window.clearTimeout(tID);		// clear time out.
+                    
+                }, 5000);	// call function after 5000 milliseconds or 5 seconds
+            }
+
+</script>
 </head>
 <body>
     <?php 
@@ -156,14 +187,12 @@ include("auth.php"); //include auth.php file on all secure pages ?>
 
                 <div class = "adb">
                     <form id="topicForm" action="" method="POST">
-                        <label for="fname">Numele categoriei actuale: <b><?php echo $_GET['name'] ?></b></label>
-                        <label for="fname">Introduceti noul nume pentru aceasta categorie: </label>
-                        <input type="text" id="fname" name="numJUD" value="">
-                        <div class = "adb1">
-                            <input type="submit" name="submit" value="Modifica" />
-                            <input type="submit" name="submit1" value="Inapoi la Admin Panel"/>
-                            </div>
-                        </form>
+                        <label for="fname">Esti sigur ca vrei sa stergi categoria <b><?php echo $_GET['jud'] ?></b>? </label>
+                        <div class = "align-rbtn">
+                            <input type="submit" name="submit" value="DA!"/>
+                            <input type="submit" name="submitno" value="NU!" id='bt' onclick='redirect_Page(this)' />
+                        </div>
+                    </form>
                 </div>
 
     <?php
@@ -171,35 +200,31 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         else if($_GET['table'] == 'topic') {
             ?>
         
-                        <div class = "adb">
-                            <form id="topicForm" action="" method="POST">
-                                <label for="fname">Numele topicului actual: <b><?php echo $_GET['top'] ?></b>, din categoria <b><?php echo $_GET['jud'] ?></ b></label>
-                                <label for="fname">Introduceti noul nume pentru aceasta topic: </label>
-                                <div class = "adb1">
-                                    <input type="text" id="fname" name="numTOP" value="">
-                                    <input type="submit" name="submit" value="Adauga un topic" />
-                                    <input type="submit" name="submit1" value="Inapoi la Admin Panel"/>
-                                </div>
-                            </form>
-                        </div>
+                    <div class = "adb">
+                        <form id="topicForm" action="" method="POST">
+                            <label for="fname">Doriti sa stergeti topicul: <b><?php echo $_GET['top'] ?></b>, din categoria <b><?php echo $_GET['jud'] ?></b>?</label>
+                            <div class = "align-rbtn">
+                                <input type="submit" name="submit" value="DA!"/>
+                                <input type="submit" name="submitno" value="NU!" id='bt' onclick='redirect_Page(this)' />
+                            </div>
+                        </form>
+                    </div>
         
             <?php
                 }
-        else if($_GET['table'] == 'raspuns') {
+    else if($_GET['table'] == 'raspuns') {
             ?>
-                
-                        <div class = "adb">
-                            <form id="topicForm" action="" method="POST">
-                                <label for="fname">Modificati raspunsul din topicul: <b><?php echo $_GET['top'] ?></b></label>
-                                <label for="fname">Introduceti noul nume pentru aceasta topic: </label>
-                                <div class = "adb1">
-                                    <input type="text" id="fname" name="numRASP" value="">
-                                    <input type="submit" name="submit" value="Modifica raspuns" />
-                                    <input type="submit" name="submit1" value="Inapoi la Admin Panel"/>
-                                </div>
-                            </form>
-                        </div>
-                
+        
+                    <div class = "adb">
+                        <form id="topicForm" action="" method="POST">
+                            <label for="fname">Doriti sa stergeti raspunsul din topicul: <b><?php echo $_GET['top'] ?></b>?</label>
+                            <div class = "align-rbtn">
+                                <input type="submit" name="submit" value="DA!"/>
+                                <input type="submit" name="submitno" value="NU!" id='bt' onclick='redirect_Page(this)' />
+                            </div>
+                        </form>
+                    </div>
+        
             <?php
                 }
     ?>
@@ -210,27 +235,37 @@ include("auth.php"); //include auth.php file on all secure pages ?>
 </html>
 
 <?php
-    if(isset($_POST['submit1'])){echo "<script>window.location.href='adminPanel.php';</script>";}
-    else if(isset($_POST['numTOP']) and $_POST['numTOP'] != ""){
-        $name = $_POST['numTOP'];
+
+    if((isset($_POST['submit']) || isset($_POST['submitno']))and $_GET['table'] == 'topic'){
+        if(isset($_POST['submit'])) {
         $id_top = $_GET['id_top'];
-        $sql = "UPDATE topic SET numetopic='$name' WHERE id='$id_top'";
+        $sql = "DELETE FROM topic WHERE id='$id_top'";
         $result = mysqli_query($con,$sql);
+        echo '<script>alert("Topicul a fost sters cu succes!");</script>';
         echo "<script>window.location.href='adminPanel.php';</script>";
+        }
+        else {
+            //echo "<script>window.location.href='adminPanel.php';</script>";
+        }
     }
-    else if(isset($_POST['numJUD']) and $_POST['numJUD'] != "") {
-        $name = $_POST['numJUD'];
+    else if((isset($_POST['submit']) || isset($_POST['submitno']))and $_GET['table'] == 'judet'){
+        if(isset($_POST['submit'])) {
         $id_jud = $_GET['id_jud'];
-        $sql = "UPDATE judete SET name='$name' WHERE id='$id_jud'";
+        $sql = "DELETE FROM judete WHERE id='$id_jud'";
         $result = mysqli_query($con,$sql);
+        echo '<script>alert("Categoria a fost stersa cu succes!");</script>';
         echo "<script>window.location.href='adminPanel.php';</script>";
+        }
     }
-    else if(isset($_POST['numRASP']) and $_POST['numRASP'] != "") {
-        $name = $_POST['numRASP'];
+    else if((isset($_POST['submit']) || isset($_POST['submitno']))and $_GET['table'] == 'raspuns'){
+        if(isset($_POST['submit'])) {
         $id_rasp = $_GET['id_rasp'];
-        $sql = "UPDATE raspunsuri SET raspuns='$name' WHERE id='$id_rasp'";
+        $sql = "DELETE FROM raspunsuri WHERE id='$id_rasp'";
         $result = mysqli_query($con,$sql);
+        echo '<script>alert("Raspunsul a fost sters cu succes!");</script>';
         echo "<script>window.location.href='adminPanel.php';</script>";
+        }
     }
+
 
 ?>

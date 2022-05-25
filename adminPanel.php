@@ -147,8 +147,8 @@ include("auth.php"); //include auth.php file on all secure pages ?>
                 <select id="optiune" name="optiune">
                     <option value="" selected="selected" >Alege tabelul</option>
                     <option value="judete" >Tabelul judete</option>
-                    <option value="raspunsuri" >Tabelul raspunsuri</option>
                     <option value="topic" >Tabelul topic</option>
+                    <option value="raspunsuri" >Tabelul raspunsuri</option>
                     <option value="users" >Tabelul users</option>
                 </select>
                 <input type="submit">
@@ -157,18 +157,6 @@ include("auth.php"); //include auth.php file on all secure pages ?>
     </div>
     <?php
         if(isset($_POST['optiune']) and $_POST["optiune"] == "judete") {
-            /*$start = 0;
-            $limit = 42;
-            $id = 1;
-            if (isset($_GET['pg'])) {
-                $id = $_GET['pg'];
-            }
-            else {
-            $id = 1;
-            }
-            $start = ($id - 1) * $limit;
-            */
-            //$sql = "SELECT * FROM judete LIMIT $start, $limit";
             $sql_jud = "SELECT * FROM judete";     
             $result_jud = mysqli_query($con, $sql_jud);
 
@@ -178,7 +166,7 @@ include("auth.php"); //include auth.php file on all secure pages ?>
             else {
 
                 echo "<table id = \"customers\">";
-                echo '<tr><th><b>Categorie</b></th><th><b>Creata la data de</b></th><th style="width: 180px" ><b>Actualizati / Stergeti</b></th></tr>';
+                echo '<tr><th><b>Categorie</b></th><th><b>Creata la data de</b></th><th style="width: 290px" ><b>Actualizati / Stergeti (CATEGORIA)</b></th></tr>';
                 while ($table_data = mysqli_fetch_array($result_jud, MYSQLI_ASSOC)) {
                     echo "<tr><td>";
                     echo '<h3><a href="topic.php?jud=' . $table_data['name'] . '">' . $table_data['name'] . '</a><h3>';
@@ -187,32 +175,79 @@ include("auth.php"); //include auth.php file on all secure pages ?>
                     echo "18-05-2022";
                     echo "</td>";
                     echo "<td>";
-                    echo '<a href= "edit.php?id_jud=' . $table_data['id'] . '"><i class="far fa-edit"></i></a> / <i class="far fa-trash-alt"></i>';
+                    echo '<a href= "edit.php?id_jud=' . $table_data['id'] . '&table=judet&name=' . $table_data['name'] . '"><i class="far fa-edit"></i></a> / <a href= "delete.php?table=judet&jud=' . $table_data['name'] . '&id_jud=' . $table_data['id'] . '"><i class="far fa-trash-alt"></i></a>';
                     echo "</td></tr>";
                 }
                 echo "</table>";
 
-                //$rows = mysqli_num_rows(mysqli_query($con, "SELECT * FROM judete "));
-                //$total = ceil($rows / $limit);
-                /*if ($id > 1) {
-                    echo "<a href='?id=" . ($id - 1) . "' class='links-button'>PREVIOUS </a>";
+            }
+        }
+        else if(isset($_POST['optiune']) and $_POST["optiune"] == "topic") {
+
+            $sql_topic = "SELECT * FROM topic";     
+            $result_topic = mysqli_query($con, $sql_topic);
+
+            if (!$result_topic)
+                die('Invalid querry:' . mysqli_error($con));
+            else {
+
+                echo "<table id = \"customers\">";
+                echo '<tr><th><b>Utilizator</b></th><th><b>Categoria</b></th><th><b>Topic</b></th><th><b>Descriere</b></th><th style="width: 250px" ><b>Actualizati / Stergeti (TOPIC)</b></th></tr>';
+                while ($table_data = mysqli_fetch_array($result_topic, MYSQLI_ASSOC)) {
+                    $id_user = $table_data['id_util'];
+                    $sql_getUser = "SELECT username FROM users WHERE id=$id_user";   
+                    $result_getUser = mysqli_query($con, $sql_getUser);
+                    $table_data_users = mysqli_fetch_array($result_getUser, MYSQLI_ASSOC);
+
+                    $id_cat = $table_data['id_jud'];
+                    $sql_getcat = "SELECT name FROM judete WHERE id=$id_cat";   
+                    $result_getcat = mysqli_query($con, $sql_getcat);
+                    $table_data_cat = mysqli_fetch_array($result_getcat, MYSQLI_ASSOC);
+
+                    echo "<tr>";
+                    echo '<td>' . $table_data_users['username'] . '</td>';
+                    echo '<td>' . $table_data_cat['name'] . '</td>';
+                    echo '<td><h3><a href="topicDeschis.php?jud='.$table_data_cat['name'].'&top='.$table_data['numetopic'].'">' . $table_data['numetopic'] . '</a><h3></td>';
+                    echo '<td>' . $table_data['descriere'] . '</td>';
+                    echo "<td>";
+                    echo '<a href= "edit.php?jud=' . $table_data_cat['name'] . '&table=topic&top=' . $table_data['numetopic'] . '&id_top=' . $table_data['id'] . '"><i class="far fa-edit"></i></a> / <a href= "delete.php?jud=' . $table_data_cat['name'] . '&table=topic&top=' . $table_data['numetopic'] . '&id_top=' . $table_data['id'] . '"><i class="far fa-trash-alt"></i></a>';
+                    echo "</td></tr>";
                 }
-                if ($id != $total) {
-                    echo "<a href='?id=" . ($id + 1) . "' class='links-button'> NEXT</a>";
+                echo "</table>";    
+            }
+        }
+        else if(isset($_POST['optiune']) and $_POST["optiune"] == "raspunsuri") {
+
+            $sql_raspunsuri = "SELECT * FROM raspunsuri";     
+            $result_raspunsuri = mysqli_query($con, $sql_raspunsuri);
+
+            if (!$result_raspunsuri)
+                die('Invalid querry:' . mysqli_error($con));
+            else {
+
+                echo "<table id = \"customers\">";
+                echo '<tr><th><b>Utilizator</b></th><th><b>Topic</b></th><th><b>Raspuns</b></th><th><b>Data</b></th><th style="width: 290px" ><b>Actualizati / Stergeti (RASPUNSUL)</b></th></tr>';
+                while ($table_data = mysqli_fetch_array($result_raspunsuri, MYSQLI_ASSOC)) {
+                    $id_user = $table_data['id_util'];
+                    $sql_getUser = "SELECT username FROM users WHERE id=$id_user";   
+                    $result_getUser = mysqli_query($con, $sql_getUser);
+                    $table_data_users = mysqli_fetch_array($result_getUser, MYSQLI_ASSOC);
+
+                    $id_top = $table_data['id_topic'];
+                    $sql_gettop = "SELECT name FROM judete WHERE id=$id_top";   
+                    $result_gettop = mysqli_query($con, $sql_gettop);
+                    $table_data_top = mysqli_fetch_array($result_gettop, MYSQLI_ASSOC);
+
+                    echo "<tr>";
+                    echo '<td>' . $table_data_users['username'] . '</td>';
+                    echo '<td>' . $table_data_top['name'] . '</td>';
+                    echo '<td>' . $table_data['raspuns'] . '</td>';
+                    echo '<td>' . $table_data['data'] . '</td>';
+                    echo "<td>";
+                    echo '<a href= "edit.php?top=' . $table_data_top['name'] . '&table=raspuns&id_rasp=' . $table_data['id'] . '"><i class="far fa-edit"></i></a> / <a href= "delete.php?top=' . $table_data_top['name'] . '&table=raspuns&id_rasp=' . $table_data['id'] . '"><i class="far fa-trash-alt"></i></a>';
+                    echo "</td></tr>";
                 }
-                echo "<div class='container'>";
-                echo "<ul class='pagination'>";
-                for ($i = 1; $i <= $total; $i++) {
-                    if ($i == $id) {
-                        echo "<li><a href='adminPanel.php?pg=" . $i . "'>" . $i . "</a></li>";
-                    } else {
-                        echo "<li><a href='adminPanel.php?pg=" . $i . "'>" . $i . "</a></li>";
-                    }
-                }
-                echo "</ul>";
-                echo "</div>";
-                }
-                */
+                echo "</table>";    
             }
         }
         
