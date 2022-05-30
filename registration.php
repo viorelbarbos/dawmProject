@@ -29,10 +29,10 @@
             alert("Numele trebuie sa contina minim 6 caractere!");  
             return false;
         }
-        else if (password.localeCompare(password_confirm ) != 0) {
+        else if (password.localeCompare(password_confirm ) != 0 ) {
             return false;
         } 
-        else if(password.length<6){  
+        else if(password.length<8){  
             alert("Parola trebuie sa aiba minim 8 caractere!");  
             return false;  
         }

@@ -9,7 +9,8 @@ include("auth.php"); //include auth.php file on all secure pages ?>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation for Sites</title>
+    <title>Acasa</title>
+    <link rel = "icon" href = "./img/Romania-icon.png" type = "image/x-icon">
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/app.css" />
@@ -48,13 +49,8 @@ include("auth.php"); //include auth.php file on all secure pages ?>
 </head>
 <body>
     <?php 
-      include("verificare.php");  
-      if(!$_SESSION["type"]) {
-        include("header-user.php");  
-      }
-      else {
         include("header-admin.php");
-      }
+      
     ?>
     <div class="card">
         <img src="img/romania.png" />

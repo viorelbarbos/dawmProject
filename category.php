@@ -1,4 +1,6 @@
 <html>
+    <title>Forum</title>
+    <link rel = "icon" href = "./img/Romania-icon.png" type = "image/x-icon">
   <link rel="stylesheet" href="css/foundation.css" />
   <link rel="stylesheet" href="css/app.css" />
   <link rel="stylesheet" href="css/app.css" />
@@ -6,6 +8,10 @@
   <style>
     body {
         background-color: rgb(255, 255, 255);
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
     }
 
     footer {
@@ -129,6 +135,9 @@
           color: black;
           font-size: 1.1rem;
         }
+        .top-bar {
+            width: 100%;
+        }
       
   </style>
 
@@ -138,15 +147,37 @@
 //create_cat.php
 include 'auth.php';
 include 'db.php';
-include 'header-user.php';
+include 'header-admin.php';
+if(isset($_REQUEST['numCAT'])&& $_REQUEST["numCAT"] != ""){
+    $numCAT = stripslashes($_REQUEST['numCAT']); 
+    $numCAT = mysqli_real_escape_string($con,$numCAT);
+    $query = "INSERT into `judete` (code, name) VALUES ('$numCAT', '$numCAT')";
+    $result = mysqli_query($con,$query);
+    
+    if (empty($_GET['pg'])) {
+  
+        echo "<script>window.location.href='category.php';</script>";
+        exit();
+    }
+    else {
+        $pg = $_GET['pg'];
+        echo "<script>window.location.href='category.php?pg=" . $pg . "';</script>";
+        exit();
 
-    $category =  "";
+    }
+}
 
 
-
+if($_SESSION['type'] == 1) {
+    $start = 0;
+    $limit = 7;
+    $id = 1;
+}
+else {
     $start = 0;
     $limit = 11;
     $id = 1;
+}
     if (isset($_GET['pg'])) {
         $id = $_GET['pg'];
     }
@@ -194,6 +225,29 @@ include 'header-user.php';
         }
         echo "</ul>";
         echo "</div>";
+        if($_SESSION['type'] == 1) {
+        if (!empty($_GET['pg'])) {
+            $pg = $_GET['pg'];
+        }
+        if($pg ==$total ) {
+            echo '<div class = "adb" style="margin-bottom: 69px;  ">';
+                echo ' <form id="topicForm" action="" method="post">';
+                    echo '<label for="fname">Introduceti numele categoriei</label>';
+                    echo ' <input type="text" id="fname" name="numCAT" value="">';
+                    echo '<input style="margin-bottom: 2px;" type="submit" name="submit" value="Adauga un categorie" />';
+                echo '</form>';
+            echo '</div>';
+        }
+        else if( ($pg == 1 and $total == 1) or $total == 0 ) {
+            echo '<div class = "adb" style="margin-bottom: 69px; ">';
+                echo ' <form id="topicForm" action="" method="post">';
+                    echo '<label for="fname">Introduceti numele categoriei</label>';
+                    echo ' <input type="text" id="fname" name="numCAT" value="">';
+                    echo '<input style="margin-bottom: 2px;"type="submit" name="submit" value="Adauga un categorie" />';
+                echo '</form>';
+            echo '</div>';
+        }
+        }
         include('footer.php');
     }
 

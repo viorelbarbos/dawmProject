@@ -9,7 +9,8 @@ include("auth.php"); //include auth.php file on all secure pages ?>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation for Sites</title>
+    <title>Admin panel</title>
+    <link rel = "icon" href = "./img/Romania-icon.png" type = "image/x-icon">
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/app.css" />
@@ -19,6 +20,10 @@ include("auth.php"); //include auth.php file on all secure pages ?>
     <style>
       body {
           background-color: rgb(255, 255, 255);
+          display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         }
         img {
           border-radius: 8px;
@@ -38,6 +43,9 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         .top-bar, .top-bar ul {
           background-color: #ff0000;
           color: white;
+      }
+      .top-bar {
+          width:100%;
       }
       a {
         color: white;
@@ -130,9 +138,15 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         }
         .adb {
             padding-top: 150px;
+            border-top:none!important;  
         }
         .align-rbtn {
-            display: line;  
+            display: line;
+            margin-bottom: 5px;
+        }
+        #topicForm {
+            border: inset;
+        border-color: #9d0011;
         }
     </style>
     <script>
@@ -176,9 +190,7 @@ include("auth.php"); //include auth.php file on all secure pages ?>
       if($_SESSION["type"] == 0) {
         echo "<script>window.location.href='index.php';</script>";  
       }
-      else {
-        include("header-admin.php");
-      }
+    include("header-admin.php");
         
     ?>
     <?php
@@ -227,6 +239,21 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         
             <?php
                 }
+                else if($_GET['table'] == 'utilizator') {
+                    ?>
+                
+                            <div class = "adb">
+                                <form id="topicForm" action="" method="POST">
+                                    <label for="fname">Doriti sa stergeti utilizatorul : <b><?php echo $_GET['nume'] ?></b>?</label>
+                                    <div class = "align-rbtn">
+                                        <input type="submit" name="submit" value="DA!"/>
+                                        <input type="submit" name="submitno" value="NU!" id='bt' onclick='redirect_Page(this)' />
+                                    </div>
+                                </form>
+                            </div>
+                
+                    <?php
+                        }
     ?>
 
     <?php include('footer.php') ?>
@@ -242,10 +269,7 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         $sql = "DELETE FROM topic WHERE id='$id_top'";
         $result = mysqli_query($con,$sql);
         echo '<script>alert("Topicul a fost sters cu succes!");</script>';
-        echo "<script>window.location.href='adminPanel.php';</script>";
-        }
-        else {
-            //echo "<script>window.location.href='adminPanel.php';</script>";
+        echo "<script>window.location.href='adminPanel.php?table=topic';</script>";
         }
     }
     else if((isset($_POST['submit']) || isset($_POST['submitno']))and $_GET['table'] == 'judet'){
@@ -254,7 +278,7 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         $sql = "DELETE FROM judete WHERE id='$id_jud'";
         $result = mysqli_query($con,$sql);
         echo '<script>alert("Categoria a fost stersa cu succes!");</script>';
-        echo "<script>window.location.href='adminPanel.php';</script>";
+        echo "<script>window.location.href='adminPanel.php?table=jud';</script>";
         }
     }
     else if((isset($_POST['submit']) || isset($_POST['submitno']))and $_GET['table'] == 'raspuns'){
@@ -263,7 +287,16 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         $sql = "DELETE FROM raspunsuri WHERE id='$id_rasp'";
         $result = mysqli_query($con,$sql);
         echo '<script>alert("Raspunsul a fost sters cu succes!");</script>';
-        echo "<script>window.location.href='adminPanel.php';</script>";
+        echo "<script>window.location.href='adminPanel.php?table=rasp';</script>";
+        }
+    }
+    else if((isset($_POST['submit']) || isset($_POST['submitno']))and $_GET['table'] == 'utilizator'){
+        if(isset($_POST['submit'])) {
+        $id_util = $_GET['id_util'];
+        $sql = "DELETE FROM users WHERE id='$id_util'";
+        $result = mysqli_query($con,$sql);
+        echo '<script>alert("Utilizatorul a fost sters cu succes!");</script>';
+        echo "<script>window.location.href='adminPanel.php?table=users';</script>";
         }
     }
 

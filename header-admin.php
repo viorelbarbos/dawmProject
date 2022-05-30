@@ -21,10 +21,16 @@
         <div class="top-bar-left">
             <ul class="dropdown menu" data-dropdown-menu>
                 <li class="menu-text">Welcome <?php echo $_SESSION['username']; ?>!</li>
-                <li><a href="index.php">Acasa</a></li>
-                <li><a href='adminPanel.php?jud=""&top=""'>ADMIN panel</a></li>
-                <li><a href="category.php">Forum</a></li>
-                <li class="right"><a href="logout.php">Deconectare</a></li>
+                <?php
+                    include ('db.php');
+                    include('verificare.php');
+                    $user_type = $_SESSION['type'];
+                    $sql_pagini = "SELECT * FROM pages WHERE tip_user in ('$user_type', '2')";
+                    $result_pagini = mysqli_query($con, $sql_pagini);
+                    while ($table_data = mysqli_fetch_array($result_pagini, MYSQLI_ASSOC)) {
+                        echo "<li><a href=".$table_data['pg_name'].">".$table_data['nume_meniu']."</a></li>";
+                    }
+                ?>
             </ul>
         </div>
         <div class="wrap">

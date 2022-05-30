@@ -9,7 +9,8 @@ include("auth.php"); //include auth.php file on all secure pages ?>
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Foundation for Sites</title>
+    <title>Admin panel</title>
+    <link rel = "icon" href = "./img/Romania-icon.png" type = "image/x-icon">
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/app.css" />
@@ -19,6 +20,10 @@ include("auth.php"); //include auth.php file on all secure pages ?>
     <style>
       body {
           background-color: rgb(255, 255, 255);
+          display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
         }
         img {
           border-radius: 8px;
@@ -38,6 +43,9 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         .top-bar, .top-bar ul {
           background-color: #ff0000;
           color: white;
+      }
+      .top-bar {
+          width:100%;
       }
       a {
         color: white;
@@ -137,6 +145,10 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         .adb {
             padding-top:220px;
         }
+        #topicForm {
+            border: inset;
+        border-color: #9d0011;
+        }
     </style>
 </head>
 <body>
@@ -145,9 +157,8 @@ include("auth.php"); //include auth.php file on all secure pages ?>
       if($_SESSION["type"] == 0) {
         echo "<script>window.location.href='index.php';</script>";  
       }
-      else {
-        include("header-admin.php");
-      }
+    include("header-admin.php");
+    
         
     ?>
     <?php
@@ -161,7 +172,7 @@ include("auth.php"); //include auth.php file on all secure pages ?>
                         <input type="text" id="fname" name="numJUD" value="">
                         <div class = "adb1">
                             <input type="submit" name="submit" value="Modifica" />
-                            <input type="submit" name="submit1" value="Inapoi la Admin Panel"/>
+                            <input style = "margin-bottom: 5px;" type="submit" name="submit1" value="Inapoi la Admin Panel"/>
                             </div>
                         </form>
                 </div>
@@ -177,8 +188,8 @@ include("auth.php"); //include auth.php file on all secure pages ?>
                                 <label for="fname">Introduceti noul nume pentru aceasta topic: </label>
                                 <div class = "adb1">
                                     <input type="text" id="fname" name="numTOP" value="">
-                                    <input type="submit" name="submit" value="Adauga un topic" />
-                                    <input type="submit" name="submit1" value="Inapoi la Admin Panel"/>
+                                    <input type="submit" name="submit" value="Modifica topic" />
+                                    <input style = "margin-bottom: 5px;" type="submit" name="submit1" value="Inapoi la Admin Panel"/>
                                 </div>
                             </form>
                         </div>
@@ -191,17 +202,33 @@ include("auth.php"); //include auth.php file on all secure pages ?>
                         <div class = "adb">
                             <form id="topicForm" action="" method="POST">
                                 <label for="fname">Modificati raspunsul din topicul: <b><?php echo $_GET['top'] ?></b></label>
-                                <label for="fname">Introduceti noul nume pentru aceasta topic: </label>
+                                <label for="fname">Introduceti noul raspuns: </label>
                                 <div class = "adb1">
                                     <input type="text" id="fname" name="numRASP" value="">
                                     <input type="submit" name="submit" value="Modifica raspuns" />
-                                    <input type="submit" name="submit1" value="Inapoi la Admin Panel"/>
+                                    <input style = "margin-bottom: 5px;" type="submit" name="submit1" value="Inapoi la Admin Panel"/>
                                 </div>
                             </form>
                         </div>
                 
             <?php
                 }
+                else if($_GET['table'] == 'utilizator') {
+                    ?>
+                        
+                                <div class = "adb">
+                                    <form id="topicForm" action="" method="POST">
+                                        <label for="fname">Modificati numele utilizatorului: <b><?php echo $_GET['nume'] ?></b></label>
+                                        <div class = "adb1">
+                                            <input type="text" id="fname" name="numUTIL" value="">
+                                            <input type="submit" name="submit" value="Modifica nume" />
+                                            <input style = "margin-bottom: 5px;" type="submit" name="submit1" value="Inapoi la Admin Panel"/>
+                                        </div>
+                                    </form>
+                                </div>
+                        
+                    <?php
+                        }
     ?>
 
     <?php include('footer.php') ?>
@@ -216,21 +243,31 @@ include("auth.php"); //include auth.php file on all secure pages ?>
         $id_top = $_GET['id_top'];
         $sql = "UPDATE topic SET numetopic='$name' WHERE id='$id_top'";
         $result = mysqli_query($con,$sql);
-        echo "<script>window.location.href='adminPanel.php';</script>";
+        echo "<script>window.location.href='adminPanel.php?table=topic';</script>";
     }
     else if(isset($_POST['numJUD']) and $_POST['numJUD'] != "") {
         $name = $_POST['numJUD'];
         $id_jud = $_GET['id_jud'];
         $sql = "UPDATE judete SET name='$name' WHERE id='$id_jud'";
         $result = mysqli_query($con,$sql);
-        echo "<script>window.location.href='adminPanel.php';</script>";
+        echo "<script>window.location.href='adminPanel.php?table=jud';</script>";
     }
     else if(isset($_POST['numRASP']) and $_POST['numRASP'] != "") {
         $name = $_POST['numRASP'];
         $id_rasp = $_GET['id_rasp'];
         $sql = "UPDATE raspunsuri SET raspuns='$name' WHERE id='$id_rasp'";
         $result = mysqli_query($con,$sql);
-        echo "<script>window.location.href='adminPanel.php';</script>";
+        echo "<script>window.location.href='adminPanel.php?table=rasp';</script>";
+    }
+    else if(isset($_POST['numUTIL']) and $_POST['numUTIL'] != "") {
+        $name = $_POST['numUTIL'];
+        $id_util = $_GET['id_util'];
+        $sql = "UPDATE users SET username='$name' WHERE id='$id_util'";
+        $result = mysqli_query($con,$sql);
+        if($name == $_SESSION['username']){
+            $_SESSION['username'] = $name;
+        }
+        echo "<script>window.location.href='adminPanel.php?table=users';</script>";
     }
 
 ?>

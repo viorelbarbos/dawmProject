@@ -1,4 +1,6 @@
 <html>
+    <title>Forum</title>
+    <link rel = "icon" href = "./img/Romania-icon.png" type = "image/x-icon">
   <link rel="stylesheet" href="css/foundation.css" />
   <link rel="stylesheet" href="css/app.css" />
   <link rel="stylesheet" href="css/app.css" />
@@ -168,7 +170,7 @@
         <?php
             include 'auth.php';
             include 'db.php';
-            include 'header-user.php';
+            include 'header-admin.php';
             if (isset($_REQUEST['comment'])&& $_REQUEST["comment"] != ""){
                
                 //echo $_SESSION['username'];

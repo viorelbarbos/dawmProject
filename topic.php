@@ -1,5 +1,7 @@
 <html>
 <head>
+    <title>Forum</title>
+    <link rel = "icon" href = "./img/Romania-icon.png" type = "image/x-icon">
     <link rel="stylesheet" href="css/foundation.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/styleAuth.css" />
@@ -148,7 +150,7 @@
 
         include 'auth.php';
         include 'db.php';
-        include 'header-user.php';
+        include("header-admin.php");
         if(isset($_REQUEST['numTOPIC'])&& $_REQUEST["numTOPIC"] != ""){
                
             //echo $_SESSION['username'];
@@ -234,7 +236,7 @@
 
             echo "<table id = \"customers\">";
             echo "<tr><td class = 'table-head' colspan='4'><a href='category.php'><b>Categorii</b> </a>/ <b>".$_GET['jud']."</b></td></tr>";
-            echo "<tr><th><b>Utilizator</b></th><th><b>Topic</b></th><th><b>Motiv</b></th><th><b>Data</b></th></tr>";
+            echo "<tr><th><b>Utilizator</b></th><th><b>Topic</b></th><th><b>Comentariu</b></th><th><b>Data</b></th></tr>";
             while ($table_data = mysqli_fetch_array($result_dataTopic, MYSQLI_ASSOC)) {
             
 
